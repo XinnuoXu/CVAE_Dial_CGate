@@ -4,7 +4,7 @@ This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Riese
 
 ## Requirments <br />
 * `Python2.7`
-* `[GloVe model](https://github.com/maciejkula/glove-python)`
+* `[GloVe model]`(https://github.com/maciejkula/glove-python)
 
 ## Quickstart <br />
 ### Step1: Download the OpenSubtitles dataset <br />
