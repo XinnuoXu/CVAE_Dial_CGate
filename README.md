@@ -3,7 +3,8 @@
 This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Rieser. Better Conversations by Modeling, Filtering, and Optimizing for Coherence and Diversity", which sadly has been neither accpted by any conference nor put on the arxiv :(
 
 ## Requirments <br />
-This code works on Python2.7
+* `Python2.7`
+* `[GloVe model](https://github.com/maciejkula/glove-python)`
 
 ## Quickstart <br />
 ### Step1: Download the OpenSubtitles dataset <br />
@@ -12,13 +13,16 @@ This code is based on OpenSubtitles dataset [Automatic Turn Segmentation for Mov
 data/filter/
 ```
 
-### Step2: Preprocess the data <br />
-Run the following command in `data/filter/`
+### Step2: Filter the OpenSubtitles dataset <br />
+Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
 ```
-After running the preprocessing, file `bag_of_words` is generated in the same directory. Then, run
+Then, run the following two commands to train a [GloVe model](https://github.com/maciejkula/glove-python) on the OpenSubtitles dataset
+
+to build the corpus model `corpus.model`. 
 ```
 python get_corpus.py
+python train.py
 ```
-to build the corpus model `corpus.model`. 
+
