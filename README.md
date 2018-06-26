@@ -3,8 +3,8 @@
 This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Rieser. Better Conversations by Modeling, Filtering, and Optimizing for Coherence and Diversity", which sadly has been neither accpted by any conference nor put on the arxiv :(
 
 ## Requirments <br />
-* `Python2.7`
-* `[GloVe model]`(https://github.com/maciejkula/glove-python)
+* Python2.7
+* [GloVe model](https://github.com/maciejkula/glove-python)
 
 ## Quickstart <br />
 ### Step1: Download the OpenSubtitles dataset <br />
