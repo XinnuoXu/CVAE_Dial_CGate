@@ -6,7 +6,7 @@ This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Riese
 
 ## Quickstart <br />
 ### Step1: Download the OpenSubtitles dataset <br />
-This code is based on OpenSubtitles dataset. You should unzip the datset and name it as `opensubtitles` and put it in 
+This code is based on OpenSubtitles dataset [Automatic Turn Segmentation for Movie & TV Subtitles](http://www.diva-portal.org/smash/get/diva2:1034694/FULLTEXT01.pdf). To get the data, contact the authors [Pierre Lison](https://github.com/plison). You should unzip the datset and name it as `opensubtitles` and put it in 
 
 ```
 data/filter/
