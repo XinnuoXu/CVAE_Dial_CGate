@@ -15,7 +15,7 @@ data/filter/
 ```
 
 ### Step2: Creat datasets for generator and discriminator <br />
-For the generator, a training pair consists of a dialogue context and a corresponding response. We consider three consecutive turns as the dialogue context and the following turn as the response.
+For the generator, a training pair consists of a dialogue context and a corresponding response. We consider three consecutive turns as the dialogue context and the following turn as the response. For the discriminator, positive examples are dialogue contexts with their following turn as the response, while negative examples are dialogue contexts with an utterance randomly sampled in the same dialogue as the response.
 
 We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset `data/filter/opensubtitles/`.
 ```
@@ -46,12 +46,23 @@ Then, we construct the training dataset for generator and discriminator from `tr
 
 The outputs are
 
-* `train.en` inputs of encoder in generator 
-* `train.vi` outputs of decoder in generator 
-* `train.pos` positive examples for discriminator
-* `train.neg` negative examples for discriminator
+* `train.en` inputs of encoder in generator (dialogue contexts)
+* `train.vi` outputs of decoder in generator (expacted responses)
+* `train.pos` positive examples for discriminator (dialogue contexts with their following turn as the response)
+* `train.neg` negative examples for discriminator (dialogue contexts with an utterance randomly sampled in the same dialogue as the response)
 
-For the 
+The format of `train.en` is `utterance1 <u2> utterance2 <u1> utterance3` in each line, for example
+```
+well , i 'm glad you called me . <u2> i 'm not . <u1> no , you did the right thing .
+```
+The format of `train.vi` is `response` in each line, for example
+```
+you 'll protect him , won 't you ?
+```
+The formats for `train.pos` and `train.neg` are the same `utterance1 <u2> utterance2 <u1> utterance3 \t response`, for example
+```
+pull up sooner . <u2> ok , skipper ! <u1> do you think they 'll ever get it ?	            give them a week .
+```
 
 * `python data_reading_shaffle.py train-dev` for train-dev set
 * `python data_reading_shaffle.py devel` for dev set
