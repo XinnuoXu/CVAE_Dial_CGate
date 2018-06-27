@@ -14,8 +14,20 @@ This code is based on OpenSubtitles dataset [Automatic Turn Segmentation for Mov
 data/filter/
 ```
 
-### Step2: Filter the OpenSubtitles dataset <br />
-**Train GloVe model on OpenSubtitles:** <br />
+### Step2: Creat datasets for generator <br />
+We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset.
+```
+~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased en-turns/ dial.jsons.txt
+```
+The outputs are 
+* `train.dial.jsons.txt`
+* `train-dev.dial.jsons.txt`
+* `devel.dial.jsons.txt`
+* `test.dial.jsons.txt`
+as the split ratio `97:1:1:1`
+
+### Step3: Filter the OpenSubtitles dataset <br />
+**Step2.1: Train GloVe model on OpenSubtitles:** <br />
 Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
@@ -25,4 +37,4 @@ Then, run the following two commands to train a [GloVe model](https://github.com
 python get_corpus.py
 python train.py
 ```
-**Train GloVe model on OpenSubtitles:**
+**Step2.1: Train GloVe model on OpenSubtitles:** <br />
