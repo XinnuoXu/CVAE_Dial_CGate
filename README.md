@@ -20,10 +20,12 @@ We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/
 ~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased en-turns/ dial.jsons.txt
 ```
 The outputs are 
+
 * `train.dial.jsons.txt`
 * `train-dev.dial.jsons.txt`
 * `devel.dial.jsons.txt`
 * `test.dial.jsons.txt`
+
 as the split ratio `97:1:1:1`
 
 ### Step3: Filter the OpenSubtitles dataset <br />
