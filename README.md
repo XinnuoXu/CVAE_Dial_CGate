@@ -5,6 +5,7 @@ This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Riese
 ## Requirments <br />
 * Python2.7
 * [GloVe model](https://github.com/maciejkula/glove-python)
+* [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools)
 
 ## Quickstart <br />
 ### Step1: Download the OpenSubtitles dataset <br />
@@ -14,7 +15,7 @@ data/filter/
 ```
 
 ### Step2: Filter the OpenSubtitles dataset <br />
-Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
+*Preprocess the Opensubtitle data:* Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
 ```
