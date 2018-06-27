@@ -26,7 +26,19 @@ The outputs are
 * `devel.dial.jsons.txt`
 * `test.dial.jsons.txt`
 
-as the split ratio `97:1:1:1`.
+as the split ratio `97:1:1:1` with format one dialogue per line
+
+```
+["utterance 1", "utterance 2", "utterance 3"...]
+```
+
+for example,
+
+```
+["Watch out !", "Oh , what fun !", "JON :", "That was fun .", "Oh , that was great !", "Oh , time for a break ?", "Dad , I 'm hungry .", "I 'm really hungry .", "Can w
+e eat now ?", "Keep your shirt on .", "We 'll be in Potter 's Cove in 20 minutes .", "OK , how about some pictures ?", "Here we go .", "Everybody smile .", "Say cheese
+ ."]
+```
 
 ### Step3: Filter the OpenSubtitles dataset <br />
 **Step2.1: Train GloVe model on OpenSubtitles:** <br />
