@@ -96,3 +96,9 @@ python train.py
 ```
 python get_glove_score.py train
 ```
+The outputs for this command is cosine distance of the two semantic vectors of a dialogue context and its response (Eq.1 in the paper). The format is `cosine distance \t dialogue context \t response`. For example
+
+```
+0.9228650507713863	  they tell the whole story . <u2> i sent them , but i want the weekend . <u1> please , mr president .	    only at the weekend .
+```
+Then you can filter the pairs with lower coherence score (cosine distance) and rewrite the `train.en` file with the filtered dialogue contexts and `train.vi` file with their responses.
