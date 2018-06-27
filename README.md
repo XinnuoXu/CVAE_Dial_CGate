@@ -15,9 +15,9 @@ data/filter/
 ```
 
 ### Step2: Creat datasets for generator <br />
-We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset.
+We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset `data/filter/opensubtitles/`.
 ```
-~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased en-turns/ dial.jsons.txt
+~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased opensubtitles/ dial.jsons.txt
 ```
 The outputs are 
 
@@ -26,7 +26,7 @@ The outputs are
 * `devel.dial.jsons.txt`
 * `test.dial.jsons.txt`
 
-as the split ratio `97:1:1:1`
+as the split ratio `97:1:1:1`.
 
 ### Step3: Filter the OpenSubtitles dataset <br />
 **Step2.1: Train GloVe model on OpenSubtitles:** <br />
