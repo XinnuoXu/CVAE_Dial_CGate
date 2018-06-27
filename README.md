@@ -15,6 +15,8 @@ data/filter/
 ```
 
 ### Step2: Creat datasets for generator and discriminator <br />
+For the generator, a training pair consists of a dialogue context and a corresponding response. We consider three consecutive turns as the dialogue context and the following turn as the response.
+
 We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset `data/filter/opensubtitles/`.
 ```
 ~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased opensubtitles/ dial.jsons.txt
@@ -26,7 +28,7 @@ The outputs are
 * `devel.dial.jsons.txt`
 * `test.dial.jsons.txt`
 
-as the split ratio `97:1:1:1` with format one dialogue per line
+as the split ratio `97:1:1:1` with format of one dialogue per line
 
 ```
 ["utterance 1", "utterance 2", "utterance 3"...]
@@ -49,7 +51,7 @@ The outputs are
 * `train.pos` positive examples for discriminator
 * `train.neg` negative examples for discriminator
 
-As for the 
+For the 
 
 * `python data_reading_shaffle.py train-dev` for train-dev set
 * `python data_reading_shaffle.py devel` for dev set
