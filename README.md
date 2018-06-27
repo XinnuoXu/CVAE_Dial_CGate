@@ -14,7 +14,7 @@ This code is based on OpenSubtitles dataset [Automatic Turn Segmentation for Mov
 data/filter/
 ```
 
-### Step2: Creat datasets for generator <br />
+### Step2: Creat datasets for generator and discriminator <br />
 We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset `data/filter/opensubtitles/`.
 ```
 ~/data/movie_tools/convert_nrno_subs.py -D -s -S train:train-dev:devel:test -r 97:1:1:1 -d all_dialogues_cased opensubtitles/ dial.jsons.txt
@@ -35,10 +35,27 @@ as the split ratio `97:1:1:1` with format one dialogue per line
 for example,
 
 ```
-["Watch out !", "Oh , what fun !", "JON :", "That was fun .", "Oh , that was great !", "Oh , time for a break ?", "Dad , I 'm hungry .", "I 'm really hungry .", "Can w
-e eat now ?", "Keep your shirt on .", "We 'll be in Potter 's Cove in 20 minutes .", "OK , how about some pictures ?", "Here we go .", "Everybody smile .", "Say cheese
- ."]
+["Watch out !", "Oh , what fun !", "JON :", "That was fun .", "Oh , that was great !", "Oh , time for a break ?", "Dad , I 'm hungry .", "I 'm really hungry .", "Can we eat now ?", "Keep your shirt on .", "We 'll be in Potter 's Cove in 20 minutes .", "OK , how about some pictures ?", "Here we go .", "Everybody smile .", "Say cheese ."]
 ```
+
+Then, we construct the training dataset for generator and discriminator from `train.dial.jsons.txt` by running
+
+* `python data_reading.py`
+
+The outputs are
+
+* `train.en` inputs of encoder in generator 
+* `train.vi` outputs of decoder in generator 
+* `train.pos` positive examples for discriminator
+* `train.neg` negative examples for discriminator
+
+As for the 
+
+* `python data_reading_shaffle.py train-dev` for train-dev set
+* `python data_reading_shaffle.py devel` for dev set
+* `python data_reading_shaffle.py test` for testing set
+
+For 
 
 ### Step3: Filter the OpenSubtitles dataset <br />
 **Step2.1: Train GloVe model on OpenSubtitles:** <br />
