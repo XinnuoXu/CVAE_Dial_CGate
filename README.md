@@ -15,7 +15,7 @@ data/filter/
 ```
 
 ### Step2: Filter the OpenSubtitles dataset <br />
-*Preprocess the Opensubtitle data:* Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
+**Preprocess the Opensubtitle data:** Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
 ```
