@@ -61,7 +61,7 @@ you 'll protect him , won 't you ?
 ```
 The formats for `train.pos` and `train.neg` are the same `utterance1 <u2> utterance2 <u1> utterance3 \t response`, for example
 ```
-pull up sooner . <u2> ok , skipper ! <u1> do you think they 'll ever get it ?	            give them a week .
+pull up sooner . <u2> ok , skipper ! <u1> do you think they 'll ever get it ?	     give them a week .
 ```
 
 * `python data_reading_shaffle.py train-dev` for train-dev set
