@@ -18,7 +18,7 @@ Run the following command in `data/filter/` to read subtitles from json files an
 ```
 python read_html.py
 ```
-Then, run the following two commands to train a [GloVe model](https://github.com/maciejkula/glove-python) on the OpenSubtitles dataset. `get_corpus.py` is used to build the corpus model `corpus.model` and `train.py` train the model on `corpus.model`.
+Then, run the following two commands to train a [GloVe model](https://github.com/maciejkula/glove-python) on the OpenSubtitles dataset. `get_corpus.py` is used to build the corpus model `corpus.model` and `train.py` train the model on `corpus.model`. The trained model is `glove.model` in the same directory.
 ```
 python get_corpus.py
 python train.py
