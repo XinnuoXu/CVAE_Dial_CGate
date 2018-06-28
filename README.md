@@ -2,17 +2,6 @@
 
 This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Rieser. Better Conversations by Modeling, Filtering, and Optimizing for Coherence and Diversity", which sadly has been neither accpted by any conference nor put on the arxiv :(
 
-- [CVAE_dialogue_generator](#cvaedialoguegenerator)
-    - [Requirements](#requirements)
-    - [Quickstart](#quickstart)
-        - [Step1: Download the OpenSubtitles dataset](#step1-download-the-opensubtitles-dataset)
-        - [Step2: Creat datasets for generator and discriminator](#step2-creat-datasets-for-generator-and-discriminator)
-        - [Step3: Filter the training set for generator](#step3-filter-the-training-set-for-generator)
-            - [Step3.1: Train GloVe model on OpenSubtitles](#step31-train-glove-model-on-opensubtitles)
-            - [Step3.2: Filter the training set for generator](#step32-filter-the-training-set-for-generator)
-        - [Step4: Training for Generator](#step4-training-for-generator)
-            - [Step4.1: Data copying](#step41-data-copying)
-            - [Step4.2: Data copying](#step42-data-copying)
 
 ## Requirements
 * Python2.7
