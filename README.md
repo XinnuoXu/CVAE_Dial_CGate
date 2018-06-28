@@ -118,7 +118,7 @@ The outputs for this command is cosine distance of the two semantic vectors of a
 ```
 Then you can filter training pairs with lower coherence score (cosine distance) and rewrite the `train.en` file with the filtered dialogue contexts and `train.vi` file with their responses.
 
-### Step4: Training for Generator
+### Step4: Training for Generator (and Discriminator)
 
 #### Step4.1: Data copying
 
@@ -131,4 +131,41 @@ You need to copy the following data from `data/filter/` to `data/`.
 * `test.en`
 * `test.vi`
 
-#### Step4.2: Data copying
+#### Step4.2: Dictionary building and data preparation
+
+```
+sh preprocess.sh
+```
+
+This command will create three socuments in `data/`.
+
+* `dialogue.train.1.pt`
+* `dialogue.valid.1.pt`
+* `dialogue.vocab.pt`
+
+#### Step4.3: Discriminator training
+
+```
+cd get_c/
+sh train.sh
+```
+
+This command will create `glove.model` in `get_c/`.
+
+#### Step4.4: Generator training
+
+Now, go back to the main directory. Run the following command to train the CVAEf_CGate generator
+
+```
+python train.py -data data/dialogue -save_model dialogue-model -epochs 30 -report_every 100 -batch_size 128 -dropout 0.2 -src_word_vec_size 128 -tgt_word_vec_size 128 -rnn_size 128 -global_attention general -input_feed 0 -glove_dir get_c/glove.model -learning_rate 1 -context_gate both
+```
+
+The trained models are named as `dialogue-model_acc_*`
+
+### Step5: Inference
+
+```
+python translate.py -model $MODEL -src data/test.en -tgt data/test.vi -report_bleu -verbose
+```
+
+The predictions are saved in file `pred.txt`
