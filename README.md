@@ -80,7 +80,9 @@ At last, we randomly sample 5000 cases for `train-dev, dev, test` separately by 
 
 
 ### Step3: Filter the training set for generator
+
 **Step3.1: Train GloVe model on OpenSubtitles**
+
 Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
@@ -104,4 +106,5 @@ The outputs for this command is cosine distance of the two semantic vectors of a
 Then you can filter training pairs with lower coherence score (cosine distance) and rewrite the `train.en` file with the filtered dialogue contexts and `train.vi` file with their responses.
 
 ### Step4: Training for Generator
+
 **Step4.1: Filter the training set for generator**
