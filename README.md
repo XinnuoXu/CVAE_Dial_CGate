@@ -2,7 +2,7 @@
 
 This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Rieser. Better Conversations by Modeling, Filtering, and Optimizing for Coherence and Diversity", which sadly has been neither accpted by any conference nor put on the arxiv :(
 
-## Requirments <br />
+## Requirements <br />
 * Python2.7
 * [GloVe model](https://github.com/maciejkula/glove-python)
 * [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools)
@@ -73,14 +73,14 @@ The formats for `train.pos` and `train.neg` are the same `utterance1 <u2> uttera
 pull up sooner . <u2> ok , skipper ! <u1> do you think they 'll ever get it ?	     give them a week .
 ```
 
-At last, we randomly sample 5000 cases for `train-dev, dev, test` separately by running and outputs for each set are similar with training set.
+At last, we randomly sample 5000 cases for `train-dev, dev, test` separately by running following commands and outputs for each set are similar with training set.
 * `python data_reading_shaffle.py ` for train-dev set
 * `python data_reading_shaffle.py dev` for dev set
 * `python data_reading_shaffle.py test` for testing set
 
 
 ### Step3: Filter the training set for generator <br />
-**Step2.1: Train GloVe model on OpenSubtitles:** <br />
+**Step3.1: Train GloVe model on OpenSubtitles:** <br />
 Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
 python read_html.py
@@ -91,7 +91,7 @@ python get_corpus.py
 python train.py
 ```
 
-**Step2.1: Filter the training set for generator:** <br />
+**Step3.2: Filter the training set for generator:**
 
 ```
 python get_glove_score.py train
@@ -101,4 +101,4 @@ The outputs for this command is cosine distance of the two semantic vectors of a
 ```
 0.9228650507713863	  they tell the whole story . <u2> i sent them , but i want the weekend . <u1> please , mr president .	    only at the weekend .
 ```
-Then you can filter the pairs with lower coherence score (cosine distance) and rewrite the `train.en` file with the filtered dialogue contexts and `train.vi` file with their responses.
+Then you can filter training pairs with lower coherence score (cosine distance) and rewrite the `train.en` file with the filtered dialogue contexts and `train.vi` file with their responses.
