@@ -107,4 +107,14 @@ Then you can filter training pairs with lower coherence score (cosine distance) 
 
 ### Step4: Training for Generator
 
-**Step4.1: Filter the training set for generator**
+**Step4.1: Data copying**
+
+You need to copy the following data from `data/filter/` to `data/`.
+
+* `train.en`
+* `train.vi`
+* `dev.en`
+* `dev.vi`
+* `test.en`
+* `test.vi`
+
