@@ -2,6 +2,18 @@
 
 This project is a pytorch implementation for my paper "Xu, Dusek, Konstas, Rieser. Better Conversations by Modeling, Filtering, and Optimizing for Coherence and Diversity", which sadly has been neither accpted by any conference nor put on the arxiv :(
 
+- [CVAE_dialogue_generator](#cvaedialoguegenerator)
+    - [Requirements](#requirements)
+    - [Quickstart](#quickstart)
+        - [Step1: Download the OpenSubtitles dataset](#step1-download-the-opensubtitles-dataset)
+        - [Step2: Creat datasets for generator and discriminator](#step2-creat-datasets-for-generator-and-discriminator)
+        - [Step3: Filter the training set for generator](#step3-filter-the-training-set-for-generator)
+            - [Step3.1: Train GloVe model on OpenSubtitles](#step31-train-glove-model-on-opensubtitles)
+            - [Step3.2: Filter the training set for generator](#step32-filter-the-training-set-for-generator)
+        - [Step4: Training for Generator](#step4-training-for-generator)
+            - [Step4.1: Data copying](#step41-data-copying)
+            - [Step4.2: Data copying](#step42-data-copying)
+
 ## Requirements
 * Python2.7
 * [GloVe model](https://github.com/maciejkula/glove-python)
@@ -16,6 +28,7 @@ data/filter/
 ```
 
 ### Step2: Creat datasets for generator and discriminator
+
 For the generator, a training pair consists of a dialogue context and a corresponding response. We consider three consecutive turns as the dialogue context and the following turn as the response. For the discriminator, positive examples are dialogue contexts with their following turn as the response, while negative examples are dialogue contexts with an utterance randomly sampled in the same dialogue as the response.
 
 We use toolkit [Opensubtitles processing tool](https://github.com/WattSocialBot/movie_tools) owned by [Ondrej Dusek](https://github.com/tuetschek) to extract dialogues from OpenSubtitles dataset `data/filter/opensubtitles/`.
@@ -81,7 +94,7 @@ At last, we randomly sample 5000 cases for `train-dev, dev, test` separately by 
 
 ### Step3: Filter the training set for generator
 
-**Step3.1: Train GloVe model on OpenSubtitles**
+#### Step3.1: Train GloVe model on OpenSubtitles
 
 Run the following command in `data/filter/` to read subtitles from json files and save in file `bag_of_words` in the same directory.
 ```
@@ -93,7 +106,7 @@ python get_corpus.py
 python train.py
 ```
 
-**Step3.2: Filter the training set for generator**
+#### Step3.2: Filter the training set for generator
 
 ```
 python get_glove_score.py train
@@ -107,7 +120,7 @@ Then you can filter training pairs with lower coherence score (cosine distance) 
 
 ### Step4: Training for Generator
 
-**Step4.1: Data copying**
+#### Step4.1: Data copying
 
 You need to copy the following data from `data/filter/` to `data/`.
 
@@ -118,3 +131,4 @@ You need to copy the following data from `data/filter/` to `data/`.
 * `test.en`
 * `test.vi`
 
+#### Step4.2: Data copying
