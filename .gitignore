@@ -9,4 +9,6 @@ translate_all.sh
 translate_merge.sh
 translate_test.sh
 *.swp
-
+./data/*.en
+./data/*.vi
+./data/*.pt
