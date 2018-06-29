@@ -206,11 +206,13 @@ class Trainer(object):
             tgt = onmt.io.make_features(batch, 'tgt')
 
             # F-prop through the model.
-            outputs, attns, dec_state, app_mu, app_logvar, true_mu, true_logvar = self.model(src, tgt, src_lengths)
+            outputs, attns, dec_state, loss_attr_z, loss_attr_c, app_mu, \
+		app_logvar, true_mu, true_logvar = self.model(src, tgt, src_lengths,only_mle=True)
 
             # Compute loss.
             batch_stats = self.valid_loss.monolithic_compute_loss(
-                    batch, outputs, app_mu, app_logvar, true_mu, true_logvar, attns)
+                    batch, outputs, app_mu, app_logvar, true_mu, true_logvar, 
+		    loss_attr_z, loss_attr_c, attns)
 
             # Update statistics.
             stats.update(batch_stats)
@@ -283,18 +285,56 @@ class Trainer(object):
                 # 1. Create truncated target.
                 tgt = tgt_outer[j: j + trunc_size]
 
+		#===========
+		# Eq 4
+		#===========
                 # 2. F-prop all but generator.
                 if self.grad_accum_count == 1:
                     self.model.zero_grad()
 
-                outputs, attns, dec_state, app_mu, app_logvar, true_mu, true_logvar = \
-                    self.model(src, tgt, src_lengths, dec_state)
+                outputs, attns, dec_state, loss_attr_z, loss_attr_c, \
+		    app_mu, app_logvar, true_mu, true_logvar = \
+                    self.model(src, tgt, src_lengths, dec_state, only_mle=True)
 
                 # 3. Compute loss in shards for memory efficiency.
                 batch_stats = self.train_loss.sharded_compute_loss(
                         batch, outputs, attns, j,
                         trunc_size, self.shard_size, normalization, 
-                        app_mu, app_logvar, true_mu, true_logvar)
+                        app_mu, app_logvar, true_mu, true_logvar,
+			loss_attr_z, loss_attr_c)
+
+                # 4. Update the parameters and statistics.
+                if self.grad_accum_count == 1:
+                    self.optim.step()
+                total_stats.update(batch_stats)
+                report_stats.update(batch_stats)
+
+                # If truncated, don't backprop fully.
+                if dec_state is not None:
+                    dec_state.detach()
+
+            dec_state = None
+            for j in range(0, target_size-1, trunc_size):
+                # 1. Create truncated target.
+                tgt = tgt_outer[j: j + trunc_size]
+
+		#===========
+		# Eq 8
+		#===========
+                # 2. F-prop all but generator.
+                if self.grad_accum_count == 1:
+                    self.model.zero_grad()
+
+                outputs, attns, dec_state, loss_attr_z, loss_attr_c, \
+		    app_mu, app_logvar, true_mu, true_logvar = \
+                    self.model(src, tgt, src_lengths, dec_state, only_mle=False)
+
+                # 3. Compute loss in shards for memory efficiency.
+                batch_stats = self.train_loss.sharded_compute_loss(
+                        batch, outputs, attns, j,
+                        trunc_size, self.shard_size, normalization, 
+                        app_mu, app_logvar, true_mu, true_logvar,
+			loss_attr_z, loss_attr_c)
 
                 # 4. Update the parameters and statistics.
                 if self.grad_accum_count == 1:

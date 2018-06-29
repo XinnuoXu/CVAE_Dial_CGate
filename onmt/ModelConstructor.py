@@ -13,7 +13,7 @@ from onmt.Models import NMTModel, MeanEncoder, RNNEncoder, \
                         StdRNNDecoder, InputFeedRNNDecoder, LatentVaraibleModel
 from onmt.modules import Embeddings, ImageEncoder, CopyGenerator, \
                          TransformerEncoder, TransformerDecoder, \
-                         CNNEncoder, CNNDecoder, AudioEncoder
+                         CNNEncoder, CNNDecoder, AudioEncoder, Gate
 from onmt.Utils import use_gpu
 from glove_disc import GloVe_Discriminator
 
@@ -267,7 +267,7 @@ def make_latent_variable_LSTM(model_opt, fields, gpu, checkpoint=None):
     tgt_embeddings = make_embeddings(model_opt, tgt_dict, feature_dicts, for_encoder=False)
 
     # Control variable
-    glv = GloVe_Discriminator()
+    glv = GloVe_Discriminator(gpu)
     glv_model = glv.load_model(model_opt.glove_dir)
 
     # Share the embedding matrix - preprocess with share_vocab required.
@@ -282,9 +282,10 @@ def make_latent_variable_LSTM(model_opt, fields, gpu, checkpoint=None):
     decoder = make_decoder(model_opt, tgt_embeddings)
 
     # Make NMTModel(= encoder + decoder).
-    model = LatentVaraibleModel(encoder, decoder, 
+    model = LatentVaraibleModel(encoder, decoder, tgt_dict,
                 enc_approx, approx_mu, approx_logvar,
-                enc_true, true_mu, true_logvar, glb, glv, gpu)
+                enc_true, true_mu, true_logvar, glb, glv, 
+		model_opt.max_gen_len, gpu)
     model.model_type = model_opt.model_type
 
     # Make Generator.

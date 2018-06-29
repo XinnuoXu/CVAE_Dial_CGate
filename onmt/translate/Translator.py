@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 from torch.autograd import Variable
 
 import onmt.translate.Beam
@@ -25,7 +24,7 @@ class Translator(object):
        beam_trace (bool): trace beam search for debugging
     """
     def __init__(self, model, fields,
-                 beam_size, c_control = 100, 
+                 beam_size, c_control = 100,
 		 n_best=1, max_length=100,
                  global_scorer=None, copy_attn=False, cuda=False,
                  beam_trace=False, min_length=0):
